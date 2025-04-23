@@ -43,6 +43,13 @@ The NPC system consists of four core components and operates across multiple lay
 3. **Inference Engineers**: Configure and run feedback loops using Graphs in Focus
 4. **Agent Developers**: Implement Body Design, Willed Form Design, and Work Testing
 
+### Agent Framework Integration
+
+The NPC system integrates with the Agent Framework through:
+- **Environment Interface**: Users, FMs, Memory, Physical worlds
+- **Body Components**: Memory Calling, FMs Calling, I/O Interface, Searching
+- **Will System**: Conceptual Adaptation, Perception, Cognition, Actuation
+
 ## Installation
 
 1. Clone the repository:
