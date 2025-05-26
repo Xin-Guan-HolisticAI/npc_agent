@@ -1,0 +1,182 @@
+[
+  {
+    "id": "e9-8",
+    "source": "9",
+    "target": "8",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "10,5"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "dashed"
+    }
+  },
+  {
+    "id": "e10-8",
+    "source": "10",
+    "target": "8",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  },
+  {
+    "id": "e8-6",
+    "source": "8",
+    "target": "6",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  },
+  {
+    "id": "e7-6",
+    "source": "7",
+    "target": "6",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "10,5"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "dashed"
+    }
+  },
+  {
+    "id": "e12-10",
+    "source": "12",
+    "target": "10",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "10,5"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "dashed"
+    }
+  },
+  {
+    "id": "e11-10",
+    "source": "11",
+    "target": "10",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  },
+  {
+    "id": "e14-11",
+    "source": "14",
+    "target": "11",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  },
+  {
+    "id": "e3-11",
+    "source": "3",
+    "target": "11",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  },
+  {
+    "id": "e13-11",
+    "source": "13",
+    "target": "11",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "10,5"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "dashed"
+    }
+  },
+  {
+    "id": "e15-3",
+    "source": "15",
+    "target": "3",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "10,5"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "dashed"
+    }
+  },
+  {
+    "id": "e2-3",
+    "source": "2",
+    "target": "3",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  },
+  {
+    "id": "e16-3",
+    "source": "16",
+    "target": "3",
+    "type": "custom",
+    "style": {
+      "strokeDasharray": "none"
+    },
+    "markerEnd": "url(#arrowhead)",
+    "sourceHandle": null,
+    "targetHandle": null,
+    "data": {
+      "styleType": "solid"
+    }
+  }
+]

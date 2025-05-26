@@ -8,6 +8,8 @@ CONCEPT_TYPE_RELATION = "[]"
 CONCEPT_TYPE_OBJECT = "{}"
 CONCEPT_TYPE_SENTENCE = "^"
 CONCEPT_TYPE_ASSIGNMENT = "@"
+CONCEPT_TYPE_INPUT = ":>:"
+CONCEPT_TYPE_OUTPUT = ":<:"
 
 CONCEPT_TYPES = {
     CONCEPT_TYPE_CLASSIFICATION: "classification",
@@ -15,7 +17,9 @@ CONCEPT_TYPES = {
     CONCEPT_TYPE_RELATION: "relation",
     CONCEPT_TYPE_OBJECT: "object",
     CONCEPT_TYPE_SENTENCE: "sentence",
-    CONCEPT_TYPE_ASSIGNMENT: "assignment"
+    CONCEPT_TYPE_ASSIGNMENT: "assignment",
+    CONCEPT_TYPE_INPUT: "input",
+    CONCEPT_TYPE_OUTPUT: "output"
 }
 
 class Concept:
@@ -34,24 +38,5 @@ class Concept:
         # Reference attribute (optional)
         self.reference: Reference = reference
 
-    def read_reference_from_file(self, path):
-        # Load reference tensor from file
-        concept_name = self.comprehension["name"]
-
-        ref_tensor = eval(open(path, encoding="utf-8").read())
-
-        # Store reference tensor in global namespace
-        globals()[f"{concept_name}_ref_tensor"] = ref_tensor
-
-        # Create and configure Reference object
-        reference = Reference(
-            axes=[concept_name],
-            shape=(len(ref_tensor),),
-            initial_value=0
-        )
-        reference.tensor = ref_tensor
-        globals()[f"{concept_name}_ref"] = reference
-
-        self.reference = reference
 
 

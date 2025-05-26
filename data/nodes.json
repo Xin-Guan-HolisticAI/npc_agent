@@ -1,0 +1,158 @@
+[
+  {
+    "id": "2",
+    "type": "red",
+    "data": {
+      "label": "< :: calculate {Sum Z}>",
+      "type": "red"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "3",
+    "type": "red",
+    "data": {
+      "label": "< :: calculate {Sum Z} by starting(...) then adding(...)>",
+      "type": "red"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "6",
+    "type": "purple",
+    "data": {
+      "label": ":[We]",
+      "type": "purple"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "7",
+    "type": "blue",
+    "data": {
+      "label": ":$what? ",
+      "type": "blue"
+    },
+    "position": {
+      "x": 135.02808454165768,
+      "y": -155.54401611628015
+    }
+  },
+  {
+    "id": "8",
+    "type": "teal",
+    "data": {
+      "label": "{Sum Z}<Sum Z? (of 9 and 10)>",
+      "type": "teal"
+    },
+    "position": {
+      "x": 172.6482269064437,
+      "y": 101.03449786838158
+    }
+  },
+  {
+    "id": "9",
+    "type": "purple",
+    "data": {
+      "label": ":true[Sum Z]",
+      "type": "purple"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "10",
+    "type": "yellow",
+    "data": {
+      "label": "<Sum Z? (of 9 and 10)>",
+      "type": "yellow"
+    },
+    "position": {
+      "x": 123.0,
+      "y": 450.0
+    }
+  },
+  {
+    "id": "11",
+    "type": "yellow",
+    "data": {
+      "label": "<Sum Z? (calculated by starting(...) and adding(...))>",
+      "type": "yellow"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "12",
+    "type": "green",
+    "data": {
+      "label": " ~IF^T",
+      "type": "green"
+    },
+    "position": {
+      "x": 291.0,
+      "y": 300.0
+    }
+  },
+  {
+    "id": "13",
+    "type": "purple",
+    "data": {
+      "label": ":[We]",
+      "type": "purple"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "14",
+    "type": "teal",
+    "data": {
+      "label": "Sum Z",
+      "type": "teal"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "15",
+    "type": "grey",
+    "data": {
+      "label": "@by({method})",
+      "type": "grey"
+    },
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    }
+  },
+  {
+    "id": "16",
+    "type": "teal",
+    "data": {
+      "label": "{starting(...) then adding(...)}<method?>",
+      "type": "teal"
+    },
+    "position": {
+      "x": 344.0,
+      "y": 0.0
+    }
+  }
+]

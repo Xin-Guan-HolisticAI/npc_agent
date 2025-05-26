@@ -5,8 +5,8 @@ This package provides the agent framework and related components.
 
 from ._agent_main import AgentFrame
 from ._cognition import Cognition
-from ._actuation import Actuation
-from ._utils import _get_default_working_config
+from ._memory._actuation import Actuation
+from ._llm._cognition import _get_default_working_config
 
 __all__ = [
     'AgentFrame',

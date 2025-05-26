@@ -8,6 +8,10 @@ import copy
 # Configure logging
 logger = logging.getLogger(__name__)
 
+
+
+
+
 def _safe_eval(s):
     """Safely evaluate a string representation of a list or other Python literal."""
     try:
@@ -129,69 +133,46 @@ def _prompt_template_dynamic_substitution(
     
     return result
 
-def _get_default_working_config(concept_type):
-    """Get default actuation configuration based on concept type."""
-    func_name = "_get_default_working_config"
-    logger.debug(f"[{func_name}] Getting default config for concept type: {concept_type}")
-    
-    perception_config = {
-        "mode": "memory_retrieval"
-    }
-    cognition_config = {}
+def _cognition_llm_prompt_two_replacement(to_cognitize_name, prompt_template, variable_definitions,
+                                            cognitized_llm, memory_location, to_cognitize_concept_name = None, perception_concept_name = None, index_dict=None, recollection=None):
+    """Create a cognitized function that processes perceptions using the given template and definitions."""
 
-    default_variable_definition_dict = {
-        "cog_n": "cog_n",
-        "cog_cn": "cog_cn",
-        "cog_cn_classification_base": "cog_cn[:-1]",
-        "cog_v": "cog_v",
-        "perc_n": "perc_n",
-        "perc_cn": "perc_cn",
-        "perc_v": "perc_v",
-        "perc_cn_n_v_bullets": "cn_list, n_list, v_list = _safe_eval(perc_cn), _safe_eval(perc_n), _safe_eval(perc_v); perc_cn_n_v_bullets = _format_bullet_points(cn_list, n_list, v_list)",
-        "cog_n_with_perc_n": "name_elements = _safe_eval(perc_n); cog_n_with_perc_n = _replace_placeholders_with_values(cog_n, name_elements)",
-        "cog_v_with_perc_n": "name_elements = _safe_eval(perc_n); cog_v_with_perc_n = _replace_placeholders_with_values(cog_v, name_elements)"
-    }
+    memory = eval(open(memory_location).read())
 
-    if concept_type == "?":
-        logger.debug(f"[{func_name}] Creating classification prompt template")
-        classification_prompt = Template("""Your task is to find instances of "$cog_cn_classification_base" from a specific text about an instance of "$perc_cn".
-    
-What finding "$cog_cn_classification_base" means: "$cog_v"
+    base_values_dict = {}
 
-**Find from "$perc_cn": "$perc_n"**
+    # Get to_cognitize_value with location awareness using nested recollection
+    concept_name_list = [to_cognitize_concept_name] if to_cognitize_concept_name else []
+    to_cognitize_value = _recollect_nested(memory, to_cognitize_name, concept_name_list, index_dict, recollection)
+    if to_cognitize_value is None:
+        to_cognitize_value = to_cognitize_name
 
-(context for "$perc_n": "$perc_v")
-
-Your output should start with some context, reasonings and explanations of the existence of the instance. Your summary key should be an instance of "$cog_n".""")
+    def cognitized_func(input_perception):
+        perception_name = _clean_parentheses(str(input_perception[0]))
+        perception_value = str(input_perception[1])
         
-        cognition_config = {
-            "mode": "llm_prompt_two_replacement",
-            "llm": "structured_llm",
-            "prompt_template": classification_prompt,
-            "template_variable_definition_dict": default_variable_definition_dict,
-        }
-        
-    elif concept_type == "<>":
-        logger.debug(f"[{func_name}] Creating judgement prompt template")
-        judgement_prompt = Template("""Your task is to judge if "$cog_n_with_perc_n" is true or false.
+        base_values_dict["cog_v"] = to_cognitize_value
+        base_values_dict["cog_n"] = to_cognitize_name
+        base_values_dict["cog_cn"] = to_cognitize_concept_name if to_cognitize_concept_name is not None else "cog_cn"
+        base_values_dict["perc_cn"] = perception_concept_name if perception_concept_name is not None else "perc_cn"
+        base_values_dict["perc_n"] = perception_name
+        base_values_dict["perc_v"] = perception_value
 
-What each of the component in "$cog_n_with_perc_n" refers to: 
-$perc_cn_n_v_bullets
-                            
-**Truth conditions to judge if it is true or false that "$cog_n_with_perc_n":** 
-    "$cog_v_with_perc_n"
-
-When judging **quote** the specific part of the Truth conditions you mentioned to make the judgement in your output, this is to make sure you are not cheating and the answer is intelligible without the Truth conditions.
-                            
-Now, judge if "$cog_n_with_perc_n" is true or false based **strictly** on the above Truth conditions, and quote the specific part of the Truth conditions you mentioned to make the judgement in your output.
-
-Your output should be a JSON object with Explanation and Summary_Key fields. The Explanation should contain your reasoning and the specific part of the Truth conditions you mentioned. The Summary_Key should be either "TRUE", "FALSE", or "N/A" (if not applicable).""")
-
-        cognition_config = {
-            "mode": "llm_prompt_two_replacement",
-            "llm": "bullet_llm",
-            "prompt_template": judgement_prompt,
-            "template_variable_definition_dict": default_variable_definition_dict
+        # Define helper functions to pass to template substitution
+        helper_functions = {
+            '_safe_eval': _safe_eval,
+            '_format_bullet_points': _format_bullet_points,
+            '_replace_placeholders_with_values': _replace_placeholders_with_values,
+            '_clean_parentheses': _clean_parentheses
         }
 
-    return perception_config, cognition_config
+        cognitized_prompt = _prompt_template_dynamic_substitution(
+            prompt_template, 
+            variable_definitions, 
+            base_values_dict,
+            helper_functions
+        )
+
+        return eval(cognitized_llm.invoke(cognitized_prompt))
+
+    return cognitized_func 

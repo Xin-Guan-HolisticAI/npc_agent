@@ -1,92 +1,85 @@
-# Norm-based Plan in Concepts (NPC)
+# Flow Graph Application
 
-NPC is a system designed to enhance AI foundation models by explicitly separating and enforcing norms and task settings. It provides a structured approach to ensure AI systems operate within defined norms while maintaining flexibility for specific task scenarios.
+This is a full-stack application for creating and managing flow graphs. It consists of a React frontend and a FastAPI backend.
 
-## Core Features
+## Features
 
-- **Explicit Norm Encoding**: Structurally enforced norms for increased robustness and verifiability
-- **Dynamic Adaptability**: Norm graphs can be updated without retraining
-- **Collaborative Governance**: Combines expert domain knowledge with AI scalability
+- Create, edit, and delete nodes
+- Connect nodes with edges
+- Different node types with various colors
+- Real-time updates
+- Persistent storage (in-memory for now, can be extended to use a database)
 
-## Architecture
+## Prerequisites
 
-The NPC system consists of four core components and operates across multiple layers:
+- Python 3.8+
+- Node.js 14+
+- npm or yarn
 
-![NPC Architecture](docs/images/npc_agent_architecture.png)
+## Setup
 
-### Core Components
+### Backend Setup
 
-1. **Concepts**: Fundamental building blocks representing different types of conceptual entities
-   - NL-focused: Objects, Relations, Sentences, Classifications, Judgements
-   - Flow-focused: Assignment, Input, Output
-
-2. **References**: Tensor-like data structures that organize and store concept instances
-   - NL-focused: Names, Relation of Names, Truth values, Definitions, Truth Conditions
-   - Flow-focused: Empty References (Cognition, Perception, Actuation Only)
-
-3. **Inferences**: Define and manage relationships between concepts
-   - Pre-perception Inferences
-   - Pre-cognition References
-   - Perception (cross-product)
-   - Cognition (cross-action)
-   - Actuation (slice)
-
-4. **Plan**: The final executable object that combines concepts and inferences
-   - Pass in References
-   - Update References
-   - Pass out References
-
-### Development Layers
-
-1. **Domain Theorists**: Define the conceptual foundation
-2. **Conceptualizers**: Parse, Default, Customize through Natural Language/Graph interfaces
-3. **Inference Engineers**: Configure and run feedback loops using Graphs in Focus
-4. **Agent Developers**: Implement Body Design, Willed Form Design, and Work Testing
-
-### Agent Framework Integration
-
-The NPC system integrates with the Agent Framework through:
-- **Environment Interface**: Users, FMs, Memory, Physical worlds
-- **Body Components**: Memory Calling, FMs Calling, I/O Interface, Searching
-- **Will System**: Conceptual Adaptation, Perception, Cognition, Actuation
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Xin-Guan-HolisticAI/npc_agent.git
-cd npc_agent
-```
-
-2. Create and activate a virtual environment:
+1. Create a virtual environment:
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-3. Install dependencies:
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+3. Run the backend server:
+```bash
+cd backend
+uvicorn main:app --reload
+```
 
-[Usage instructions will be added here]
+The backend will be available at http://localhost:8000
 
-## Project Structure
+### Frontend Setup
 
-- `core/`: Contains the main implementation of the NPC system
-  - `_agentframe/`: Agent framework implementation
-  - `_conceptualizers/`: Concept parsing and management
-  - `_npc_components/`: Core NPC system components
-- `example/`: Example implementations and use cases
-- `example_workflow.md`: Detailed documentation of the system's workflow
-- `docs/`: Documentation and architecture diagrams
+1. Install dependencies:
+```bash
+cd interface
+npm install
+```
 
-## Contributing
+2. Start the development server:
+```bash
+npm start
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+The frontend will be available at http://localhost:3000
 
-## License
+## API Endpoints
 
-[License information will be added here] 
+- `GET /nodes` - Get all nodes
+- `POST /nodes` - Create a new node
+- `PUT /nodes/{node_id}` - Update a node
+- `DELETE /nodes/{node_id}` - Delete a node
+- `GET /edges` - Get all edges
+- `POST /edges` - Create a new edge
+- `DELETE /edges/{edge_id}` - Delete an edge
+
+## Development
+
+### Backend Development
+
+The backend is built with FastAPI and provides a RESTful API for managing nodes and edges. The current implementation uses in-memory storage, but it can be easily extended to use a database.
+
+### Frontend Development
+
+The frontend is built with React and uses ReactFlow for the graph visualization. It communicates with the backend API to persist changes.
+
+## Future Improvements
+
+1. Add database integration (e.g., PostgreSQL)
+2. Add user authentication
+3. Add graph export/import functionality
+4. Add more node types and customization options
+5. Add undo/redo functionality
+6. Add graph validation rules
+7. Add collaborative editing features 

@@ -1,4 +1,4 @@
-from ._utils import (
+from ._llm._cognition import (
     _safe_eval,
     _format_bullet_points,
     _replace_placeholders_with_values,
@@ -7,19 +7,19 @@ from ._utils import (
     _get_default_working_config
 )
 
-from ._actuation import (
+from ._memory._actuation import (
     _remember_in_concept_name_location_dict,
     _recollect_by_concept_name_location_dict,
-    _cognition_memory_bullet,
-    _cognition_memory_json_bullet,
+    _actuation_memory_bullet,
+    _actuation_memory_json_bullet,
     _combine_pre_perception_concepts_by_two_lists
 )
 
 from ._cognition import (
-    _actuation_llm_prompt_two_replacement
+    _cognition_llm_prompt_two_replacement
 )
 
-from ._perception import (
+from ._memory._perception import (
     _perception_memory_retrieval,
 
 )
@@ -60,10 +60,10 @@ class AgentFrame:
         else:
             raise ValueError(f"Unknown recollection mode: {mode_of_recollection}")
 
-    def cognition(self, concept, perception_working_config=None, actuation_working_config=None, **kwargs):
+    def actuation(self, concept, perception_working_config=None, actuation_working_config=None, **kwargs):
         """Process values into names and store"""
         if self.debug:
-            logging.debug(f"Starting cognition process for concept: {concept.comprehension.get('name')}")
+            logging.debug(f"Starting actuation process for concept: {concept.comprehension.get('name')}")
             
         if not isinstance(concept, Concept):
             raise ValueError("Perception requires Concept instance")
@@ -76,9 +76,9 @@ class AgentFrame:
         if self.debug:
             logging.debug(f"Processing concept: name={concept_name}, type={concept_type}")
 
-        default_perception_working_config, default_actuation_working_config = _get_default_working_config(concept_type)
+        default_perception_working_config, default_cognition_working_config = _get_default_working_config(concept_type)
         self.working_memory['perception'][concept_name] = perception_working_config or default_perception_working_config
-        self.working_memory['actuation'][concept_name] = actuation_working_config or default_actuation_working_config
+        self.working_memory['actuation'][concept_name] = actuation_working_config or default_cognition_working_config
 
         if self.debug:
             logging.debug(f"Working memory updated for {concept_name}")
@@ -98,7 +98,7 @@ class AgentFrame:
                 logging.debug(f"LLM cognition parameters: prompt_template={prompt_template}, variable_definitions={variable_definitions}")
 
             _cognitized_func = lambda cog_name, index_dict: (
-                _cognition_llm_prompt_two_replacement(
+                _actuation_memory_json_bullet(
                 to_cognitize_name=cog_name,
                 prompt_template=prompt_template,
                 variable_definitions=variable_definitions,
@@ -159,13 +159,13 @@ class AgentFrame:
         
         raise ValueError(f"Unknown perception mode: {mode}")
 
-    def actuation(self, concept, for_perception_concept_name=''):
+    def cognition(self, concept, for_perception_concept_name=''):
         """Create functions through named parameter resolution"""
         if self.debug:
-            logging.debug(f"Starting actuation process for concept: {concept.comprehension.get('name')}")
+            logging.debug(f"Starting cognition process for concept: {concept.comprehension.get('name')}")
             
         if not isinstance(concept, Concept):
-            raise ValueError("Actuation requires Concept instance")
+            raise ValueError("Cognition requires Concept instance")
 
         reference = concept.reference
         concept_name = concept.comprehension.get("name","")
@@ -173,24 +173,24 @@ class AgentFrame:
         concept_type = concept.comprehension.get("type","{}")
 
         if self.debug:
-            logging.debug(f"Processing actuation for concept: name={concept_name}, type={concept_type}")
+            logging.debug(f"Processing cognition for concept: name={concept_name}, type={concept_type}")
 
-        actuation_working_configuration = self.working_memory['actuation'].get(concept_name)
-        mode = actuation_working_configuration.get("mode")
+        cognition_working_configuration = self.working_memory['cognition'].get(concept_name)
+        mode = cognition_working_configuration.get("mode")
 
         if self.debug:
-            logging.debug(f"Using actuation mode: {mode}")
+            logging.debug(f"Using cognition mode: {mode}")
 
         if mode == "llm_prompt_two_replacement":
-            cognitized_llm = self.body[actuation_working_configuration.get("llm")]
-            prompt_template = actuation_working_configuration.get("prompt_template")
-            variable_definitions = actuation_working_configuration.get("template_variable_definition_dict")
+            cognitized_llm = self.body[cognition_working_configuration.get("llm")]
+            prompt_template = cognition_working_configuration.get("prompt_template")
+            variable_definitions = cognition_working_configuration.get("template_variable_definition_dict")
 
             if self.debug:
                 logging.debug(f"LLM actuation parameters: prompt_template={prompt_template}, variable_definitions={variable_definitions}")
 
             _cognitized_func = lambda cog_name, index_dict: (
-                _actuation_llm_prompt_two_replacement(
+                _cognition_llm_prompt_two_replacement(
                 to_cognitize_name=cog_name,
                 prompt_template=prompt_template,
                 variable_definitions=variable_definitions,
